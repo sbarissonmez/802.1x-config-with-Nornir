@@ -23,7 +23,7 @@ Following Packtes, Modules and Requirements are needed:
     paramiko==2.7.2
    
 For more informations see [here](https://github.com/nornir-automation/nornir)
-Python Version must be at least ***v3.6.8**
+Python Version must be at least ***v3.6.8***
 
 ## Usage
 Please create the neccessary inventory files that nornir works with, and adjust them to your enviroment.
