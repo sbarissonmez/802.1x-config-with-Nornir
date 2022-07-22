@@ -19,7 +19,7 @@ Following Packtes, Modules and Requirements are needed:
     nornir-napalm==0.1.2
     nornir-netmiko==0.1.1
     paramiko==2.7.2
-    
+   
 For more informations see ---> https://github.com/nornir-automation/nornir
 Python Version must be at least v3.6.8
 
