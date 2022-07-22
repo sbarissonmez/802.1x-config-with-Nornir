@@ -11,6 +11,8 @@ Illustrate the following concepts:
 - Setting all neccessary interface configurations based on check if description and interface type
 - Add the Device to ISE with all secrets and needed groups
 
+[diagram](./802.1x-diagram.png)
+
 ## Installation
 Please use NORNIR Version 3.0
 Following Packtes, Modules and Requirements are needed:
