@@ -17,7 +17,7 @@ import getpass
 
 urllib3.disable_warnings()
 
-nr = InitNornir(config_file="/home/nouse4it/scripts/nornir/config_files/nornir3_config.yaml")
+nr = InitNornir(config_file="nornir3_config.yaml")
 
 nr.inventory.groups['a'].username = os.getenv("USER") # set Username
 nr.inventory.groups['a'].password = os.getenv("PW") # set password
