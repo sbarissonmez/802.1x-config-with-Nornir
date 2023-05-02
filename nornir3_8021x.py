@@ -17,12 +17,12 @@ urllib3.disable_warnings()
 
 nr = InitNornir(config_file="nornir3_config.yaml")
 
-nr.inventory.groups['a'].username = os.getenv("USER") # set Username
-nr.inventory.groups['a'].password = os.getenv("PW") # set password
+nr.inventory.groups['a'].username = os.getenv("USER") # Specify the username
+nr.inventory.groups['a'].password = os.getenv("PW") #  Specify the password
 
-hosts = nr.filter(dot1x="yes") # use only hosts where "data: dot1x: yes" is set in Host Inventory File!
+hosts = nr.filter(dot1x="yes") # To ensure proper configuration, only hosts with the "data: dot1x: yes" setting in the Host Inventory File should be used
 
-host_list = [] # List for all Hosts that should be added to ISE later
+host_list = [] # This is a list of all the hosts that need to be added to ISE at a later stage.
 
 radius_key = getpass.getpass('Enter Radius Shared Key for location: ')
 tacacs_key = getpass.getpass('Enter TACACS Shared Key for location: ')
@@ -145,7 +145,7 @@ def ise_config(hostname,tacacsSharedSecret,location,building,switchtype,ip,radiu
     update_device(hostname,ise_api_ip,ise_api_user,ise_api_pwd,update_json)
 
 #------------------------------------------------------------------------------
-# Send the privious generated JSON to ISE
+# Use the previously generated JSON to send data to ISE
 def update_device(hostname,ise_api_ip,ise_api_user,ise_api_pwd,json):
     url = 'https://{}:9060/ers/config/networkdevice/name/{}'.format(ise_api_ip, hostname.upper())
     headers = {'ACCEPT': 'application/json','content-type': 'application/json'}
@@ -154,7 +154,7 @@ def update_device(hostname,ise_api_ip,ise_api_user,ise_api_pwd,json):
     return
 
 #==============================================================================
-# ---- Main: Run Commands
+# ---- Main: Execute Commands
 #==============================================================================  
 
 results_global = hosts.run(task=global_config)
@@ -165,16 +165,16 @@ print_result(results_intf)
 
 write_mem = hosts.run(task=netmiko_send_command, command_string="write mem", use_genie=True)
 
-# Add all Hosts that Nornir worked on to list for later adding them to ISE via API
+# Create a list of hosts that were processed by Nornir for future addition to ISE through the API
 for dev in hosts.inventory.hosts.items():
     host_list.append(dev[0])
 
-# Hostname gives every value i need seperate by '-' so i cut the needed informations out of the hostname string
+# To extract the required information from the hostname string, I separate each value I need using the hyphen (-) delimiter
 for host in host_list:
     location = host[:3].upper()
     building = host[8:10]
     swt = host[6:7]
     if swt == "a":
         switchtype = "Access Switch"
-    ip = socket.gethostbyname(host) # DNS Lookup for getting the IP of the Switch
+    ip = socket.gethostbyname(host) # Perform a DNS lookup to retrieve the IP address of the switch.
     ise_config(host,tacacs_key,location,building,switchtype,ip,radius_key,ise_api_ip,ise_api_user,ise_api_pwd) 
