@@ -15,7 +15,7 @@ import getpass
 
 urllib3.disable_warnings()
 
-nr = InitNornir(config_file="nornir3_config.yaml")
+nr = InitNornir(config_file="config.yaml")
 
 nr.inventory.groups['a'].username = os.getenv("USER") # Specify the username
 nr.inventory.groups['a'].password = os.getenv("PW") #  Specify the password
@@ -110,7 +110,7 @@ def ise_config(hostname,tacacsSharedSecret,location,building,switchtype,ip,radiu
             "authenticationSettings": {
                 "radiusSharedSecret": radiusSharedSecret,
                 "enableKeyWrap": "false",
-                "keyEncryptionKey": "1234567890123456",
+                "keyEncryptionKey": "Wmc8EgBoZwhsLn",
                 "keyInputFormat": "ASCII"
             },
             "snmpsettings": {
